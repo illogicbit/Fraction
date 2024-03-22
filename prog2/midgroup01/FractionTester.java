@@ -12,6 +12,7 @@ public class FractionTester implements ActionListener{
     String equation = "";
     String input = "";
 
+    private static JTextField output;
 
     public static void main(String[] args) {
         FractionGUI fractionFrame = new FractionGUI();
@@ -104,23 +105,24 @@ public class FractionTester implements ActionListener{
         //Input other method calls and functions after this comment. This guarantees that the input is validated to avoid errors.
 
         //Put arithmetic operations below.
-        switch (operator){
+        MixedFraction result = null;
+        switch (operator) {
             //Print statements for testing.
             case '+':
-                System.out.println(mixedFraction[0].addition(mixedFraction[1]));
+                result = (mixedFraction[0].addition(mixedFraction[1]));
                 break;
             case '-':
-                System.out.println(mixedFraction[0].subtraction(mixedFraction[1]));
+                result = (mixedFraction[0].subtraction(mixedFraction[1]));
                 break;
             case '/':
-                System.out.println(mixedFraction[0].divideBy(mixedFraction[1]));
+                result = (mixedFraction[0].divideBy(mixedFraction[1]));
                 break;
             case '*':
-                System.out.println(mixedFraction[0].multiplyBy(mixedFraction[1]));
+                result = (mixedFraction[0].multiplyBy(mixedFraction[1]));
                 break;
             default:
-                throw new InvalidInputException("Invalid operator!");
         }
+        output.setText(String.valueOf(result));
     }
 
     public void fractionToDouble(String equation) throws InvalidInputException {
