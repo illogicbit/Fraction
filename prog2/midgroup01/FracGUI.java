@@ -159,6 +159,25 @@ public class FracGUI extends JFrame {
         });
         btnBox.add(clearBtn);
 
+        helpBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
+        helpBtn.setBackground(btnColor);
+        helpBtn.setForeground(fontColor);
+        helpBtn.addActionListener(new FractionTester());
+        helpBtn.setFocusPainted(false);
+        helpBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                helpBtn.setBackground(altbtnColor);
+                helpBtn.setForeground(btnColor);
+            }
+            public void mouseExited(MouseEvent e){
+                super.mouseEntered(e);
+                helpBtn.setBackground(btnColor);
+                helpBtn.setForeground(fontColor);
+            }
+        });
+        btnBox.add(helpBtn);
 
         // Fields Panel
         fieldBox.setBackground(bgColor);
