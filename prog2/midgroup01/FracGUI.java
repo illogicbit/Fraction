@@ -16,11 +16,13 @@ public class FracGUI extends JFrame {
     private JTextField frac2 = new JTextField(15);
     private JTextField displayDbl = new JTextField(15);
     private JTextField displayRes = new JTextField(15);
+    private JTextField displayFrc = new JTextField(15);
     private JLabel textA = new JLabel("Enter two Fractions:");
     private JLabel textFrac = new JLabel("Fraction 1: ");
     private JLabel textFracB = new JLabel("Fraction 2: ");
     private JLabel textRes = new JLabel("Result: ");
     private JLabel textDbl = new JLabel("Decimal: ");
+    private JLabel textFrc = new JLabel("Fraction: ");
     private Color bgColor = new Color(250, 230, 230);
     private Color btnColor = new Color(250, 170, 170);
     private Color fontColor = new Color(140, 70, 80);
@@ -221,17 +223,27 @@ public class FracGUI extends JFrame {
 
         gbc.gridx = 0;
         gbc.gridy = 3;
-        fieldBox.add(textDbl, gbc);
+        fieldBox.add(textFrc, gbc);
 
         gbc.gridx = 1;
         gbc.gridy = 3;
+        fieldBox.add(displayFrc, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        fieldBox.add(textDbl, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 4;
         fieldBox.add(displayDbl, gbc);
+
 
         textA.setFont(fieldFont);
         textFrac.setForeground(fontColor);
         textFracB.setForeground(fontColor);
         textRes.setForeground(fontColor);
         textDbl.setForeground(fontColor);
+        textFrc.setForeground(fontColor);
 
 
         frac1.setFont(fieldFont);
@@ -253,6 +265,11 @@ public class FracGUI extends JFrame {
         displayDbl.setEditable(false);
         displayDbl.setForeground(fontColor);
 
+        displayFrc.setFont(fieldFont);
+        textFrc.setFont(fieldFont);
+        displayFrc.setEditable(false);
+        displayFrc.setForeground(fontColor);
+
         setVisible(true);
     }
 
@@ -272,5 +289,7 @@ public class FracGUI extends JFrame {
     public JTextField getDisplayDbl(){
         return displayDbl;
     }
+
+    public JTextField getDisplayFrc() {return displayFrc;}
 
 }

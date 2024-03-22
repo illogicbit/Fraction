@@ -15,6 +15,7 @@ public class FractionTester implements ActionListener{
     private static JTextField frac2;
     private static JTextField displayRes;
     private static JTextField displayDbl;
+    private static JTextField displayFrc;
     private static FracGUI calculator;
 
     public static void main(String[] args) {
@@ -26,6 +27,7 @@ public class FractionTester implements ActionListener{
         frac2 = calculator.getFraction2();
         displayRes = calculator.getDisplayRes();
         displayDbl = calculator.getDisplayDbl();
+        displayFrc = calculator.getDisplayFrc();
     }
 
 
@@ -100,9 +102,11 @@ public class FractionTester implements ActionListener{
 
                 if (result.getNumerator() == 0) {
                     displayRes.setText(String.valueOf(Math.round(result.toDouble())));
+                    displayFrc.setText(String.valueOf(Math.round(result.toDouble())));
                     displayDbl.setText(String.valueOf(result.toDouble()));
                 }else{
-                    displayRes.setText(result.reduce().toString());
+                    displayRes.setText(result.toString());
+                    displayFrc.setText(result.toFraction().reduce().toString());
                     displayDbl.setText(String.valueOf(result.toDouble()));
                 }
 
