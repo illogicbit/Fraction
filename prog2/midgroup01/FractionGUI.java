@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 public class FractionGUI extends JFrame {
     private JPanel displayPanel = new JPanel(new GridLayout(2, 1));
     private JTextArea display = new JTextArea(3,30);
-    private JTextField output = new JTextField();
+    private JTextField output, outputDecimal = new JTextField;
     private BorderLayout brLay = new BorderLayout();
     private GridLayout btnLay = new GridLayout(6, 4, 4, 4);
     private JPanel bgPanel = new JPanel(new BorderLayout());
@@ -27,6 +27,10 @@ public class FractionGUI extends JFrame {
 
     public JTextField getOutput(){
         return output;
+    }
+
+    public JTextField getOutputDecimal(){
+        return outputDecimal;
     }
 
     public FractionGUI() {
@@ -73,11 +77,21 @@ public class FractionGUI extends JFrame {
         display.setPreferredSize(txtDim);
         display.setBackground(bgColor);
 
+        //for the result
         output = new JTextField();
-        output.setBounds(285, 60,120, 40);
+        output.setBounds(340, 60,60, 40);
         output.setFont(btnFont);
         output.setEditable(false);
-        output.setBackground(bgColor);
+        output.setText(String.valueOf(CENTER_ALIGNMENT));
+        display.add(output);
+
+        //to decimal
+        outputDecimal = new JTextField();
+        outputDecimal.setBounds(280, 60,60, 40);
+        outputDecimal.setFont(btnFont);
+        outputDecimal.setEditable(false);
+        output.setText(String.valueOf(CENTER_ALIGNMENT));
+        display.add(outputDecimal);
 
         bgPanel.add(display, BorderLayout.NORTH);
         bgPanel.add(output);
