@@ -1,10 +1,14 @@
+package prog2.midgroup01;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class FractionTester implements ActionListener{
+import prog2.prelimgroup.Fraction;
+
+public class FractionTester implements ActionListener {
 
     private MixedFraction[] mixedFraction = new MixedFraction[2];
 
@@ -26,8 +30,8 @@ public class FractionTester implements ActionListener{
         JButton btnInput = (JButton) e.getSource();
         input = btnInput.getText();
         equation = display.getText();
-        try{
-            switch(input){
+        try {
+            switch (input) {
                 case "Sf":
                     display.insert("Sf(/)", display.getCaretPosition());
                     display.setCaretPosition(display.getCaretPosition() - 2);
@@ -57,20 +61,20 @@ public class FractionTester implements ActionListener{
                 default:
                     display.insert(input, display.getCaretPosition());
             }
-        }catch (InvalidInputException error){
+        } catch (InvalidInputException error) {
             JOptionPane.showMessageDialog(display, error.getMessage());
-        }catch (IndexOutOfBoundsException error){
+        } catch (IndexOutOfBoundsException error) {
             JOptionPane.showMessageDialog(display, "Fraction count must not exceed 2!");
-        }catch (NullPointerException error){
+        } catch (NullPointerException error) {
             JOptionPane.showMessageDialog(display, "One or more fraction(s) is/are invalid!");
-        }catch (ArithmeticException error){
+        } catch (ArithmeticException error) {
             JOptionPane.showMessageDialog(display, "Denominator must be greater than zero!");
         }
 
     }
 
     //Method to identify the fraction/s in the equations (Max of 2)
-    public void identifyPartsAndValidate(String equation){
+    public void identifyPartsAndValidate(String equation) {
         //Create a regex search pattern and matcher
         Pattern fractionPattern = Pattern.compile("Sf\\(-*[0-9]+/-*[0-9]+\\)|Mf\\(-*[0-9]+\\(-*[0-9]+/-*[0-9]+\\)\\)");
         Matcher findFractions = fractionPattern.matcher(equation);
@@ -86,10 +90,6 @@ public class FractionTester implements ActionListener{
             }
             index++;
         }
-
-
-        System.out.println(mixedFraction[0]);
-        System.out.println(mixedFraction[1]);
     }
 
     public void arithmeticOperations(String equation) throws InvalidInputException {
@@ -100,15 +100,12 @@ public class FractionTester implements ActionListener{
         Pattern operatorPattern = Pattern.compile("[-+/*]+Mf|[-+/*]+Sf");
         Matcher findOperator = operatorPattern.matcher(equation);
 
-        if(findOperator.find())
+        if (findOperator.find())
             operator = findOperator.group().replaceAll("[SMf]", "").charAt(0);
-
-        //Input other method calls and functions after this comment. This guarantees that the input is validated to avoid errors.
 
         //Put arithmetic operations below.
         MixedFraction result = null;
         switch (operator) {
-            //Print statements for testing.
             case '+':
                 result = (mixedFraction[0].addition(mixedFraction[1]));
                 break;
@@ -122,22 +119,41 @@ public class FractionTester implements ActionListener{
                 result = (mixedFraction[0].multiplyBy(mixedFraction[1]));
                 break;
             default:
+                throw new InvalidInputException("Invalid operator!");
         }
-        output.setText(String.valueOf(result));
+        
+        //Check if the result will be displayed as either a whole number, mixed, or simple fraction.
+        String convertResultToProperOutput = result.toString();
+
+        if (result.getWholePart() == 0) {
+            convertResultToProperOutput = result.toFraction().toString();
+        }
+        if (result.getNumerator() == 0) {
+            convertResultToProperOutput = String.valueOf(Math.round(result.toFraction().toDouble()));
+        }
+        
+        //Display answer.
+        output.setText("= " + convertResultToProperOutput);
     }
 
     public void fractionToDouble(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
-        //Print statement for testing
-        System.out.println(mixedFraction[0].toDouble());
-        //Code to convert fraction to double.
+
+        //Checks if a second fraction exists and if it does display its decimal form alongside the first.
+
+        if (mixedFraction[1] != null) {
+        
+        }
     }
 
     public void reduceFraction(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
-        //Print statement for testing.
-        System.out.println(mixedFraction[0].reduce());
-        //Code to reduce fraction.
+        
+        //Checks if a second fraction exists and if it does display its reduced form alongside the first.
+
+        if (mixedFraction[1] != null) {
+       
+        }
     }
 
     //Start of custom exceptions
