@@ -7,10 +7,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class FractionGUI extends JFrame {
+    private JPanel displayPanel = new JPanel(new GridLayout(2, 1));
     private JTextArea display = new JTextArea(3,30);
-    private JTextField output;
+    private JTextField output = new JTextField();
     private BorderLayout brLay = new BorderLayout();
-    private GridLayout btnLay = new GridLayout(4, 4, 4, 4);
+    private GridLayout btnLay = new GridLayout(6, 4, 4, 4);
     private JPanel bgPanel = new JPanel(new BorderLayout());
     private JPanel btnPanel = new JPanel();
     private Color bgColor = new Color(250, 230, 230);
@@ -23,7 +24,7 @@ public class FractionGUI extends JFrame {
     public JTextArea getDisplay(){
         return display;
     }
-    
+
     public JTextField getOutput(){
         return output;
     }
@@ -40,14 +41,7 @@ public class FractionGUI extends JFrame {
         btnPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         btnPanel.setLayout(btnLay);
 
-        output = new JTextField();
-        output.setBounds(260, 60,120, 40);
-        output.setFont(btnFont);
-        output.setEditable(false);
-
-        display.add(output);
-        
-        String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/", "Sf", "Mf", "<", ">", "S->D", "Red"}
+        String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/", "Sf", "Mf", "Dec", "Red", "", "<", ">", ""};
         for (String lbl : btnLabel) {
             RoundBtn btn = new RoundBtn();
             btn.setText(lbl);
@@ -58,6 +52,7 @@ public class FractionGUI extends JFrame {
             btn.setBorderPainted(false);
             btnPanel.setBackground(bgColor);
             btnPanel.add(btn);
+            btn.addActionListener(new FractionTester());
             btn.addMouseListener(new MouseAdapter() { //mouse hover effect
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -71,20 +66,23 @@ public class FractionGUI extends JFrame {
                     btn.setForeground(fontColor);
                 }
             });
-
-
         }
         display.setEditable(false);
-        display.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        display.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         display.setFont(btnFont);
         display.setPreferredSize(txtDim);
         display.setBackground(bgColor);
 
+        output = new JTextField();
+        output.setBounds(285, 60,120, 40);
+        output.setFont(btnFont);
+        output.setEditable(false);
+        output.setBackground(bgColor);
+
         bgPanel.add(display, BorderLayout.NORTH);
+        bgPanel.add(output);
         bgPanel.add(btnPanel, BorderLayout.CENTER);
         add(bgPanel, BorderLayout.CENTER);
-
-
         setVisible(true);
     }
     public class RoundBtn extends JButton {
