@@ -1,35 +1,77 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class FractionTester implements ActionListener{
 
-    MixedFraction[] mixedFraction = new MixedFraction[2];
+    private MixedFraction[] mixedFraction = new MixedFraction[2];
+
+    private static JTextArea display;
     String equation = "";
+    String input = "";
+
+
     public static void main(String[] args) {
         FractionGUI fractionFrame = new FractionGUI();
+        display = fractionFrame.getDisplay();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        display.getCaret().setVisible(true);
         JButton btnInput = (JButton) e.getSource();
-        equation += btnInput.getText();
+        input = btnInput.getText();
+        equation = display.getText();
+        try{
+            switch(input){
+                case "Sf":
+                    display.insert("Sf(/)", display.getCaretPosition());
+                    display.setCaretPosition(display.getCaretPosition() - 2);
+                    break;
+                case "Mf":
+                    display.insert("Mf((/))", display.getCaretPosition());
+                    display.setCaretPosition(display.getCaretPosition() - 4);
+                    break;
+                case "=":
+                    arithmeticOperations(equation);
+                    break;
+                case "<":
+                    display.setCaretPosition(display.getCaretPosition() - 1);
+                    break;
+                case ">":
+                    display.setCaretPosition(display.getCaretPosition() + 1);
+                    break;
+                case "C":
+                    display.setText("");
+                    break;
+                case "S->D":
+                    fractionToDouble(equation);
+                    break;
+                case "Red":
+                    reduceFraction(equation);
+                    break;
+                default:
+                    display.insert(input, display.getCaretPosition());
+            }
+        }catch (InvalidInputException error){
+            JOptionPane.showMessageDialog(display, error.getMessage());
+        }catch (IndexOutOfBoundsException error){
+            JOptionPane.showMessageDialog(display, "Fraction count must not exceed 2!");
+        }catch (NullPointerException error){
+            JOptionPane.showMessageDialog(display, "One or more fraction(s) is/are invalid!");
+        }catch (ArithmeticException error){
+            JOptionPane.showMessageDialog(display, "Denominator must be greater than zero!");
+        }
 
     }
 
     //Method to identify the fraction/s in the equations (Max of 2)
     public void identifyPartsAndValidate(String equation){
-
         //Create a regex search pattern and matcher
         Pattern fractionPattern = Pattern.compile("Sf\\(-*[0-9]+/-*[0-9]+\\)|Mf\\(-*[0-9]+\\(-*[0-9]+/-*[0-9]+\\)\\)");
         Matcher findFractions = fractionPattern.matcher(equation);
-
         //Loop through the equation to find substring of text similar to the identified pattern, then check for its length to determine whether it's a simple or mixed fraction.
         int index = 0;
         while (findFractions.find()) {
@@ -42,9 +84,13 @@ public class FractionTester implements ActionListener{
             }
             index++;
         }
+
+
+        System.out.println(mixedFraction[0]);
+        System.out.println(mixedFraction[1]);
     }
 
-    public void arithmeticOperations(String equation){
+    public void arithmeticOperations(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
 
         //Identify the operator using a regex pattern matcher.
@@ -73,7 +119,7 @@ public class FractionTester implements ActionListener{
                 System.out.println(mixedFraction[0].multiplyBy(mixedFraction[1]));
                 break;
             default:
-
+                throw new InvalidInputException("Invalid operator!");
         }
     }
 
