@@ -30,8 +30,8 @@ public class FractionGUI extends JFrame {
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         btnPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         btnPanel.setLayout(btnLay);
-
-        String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/"}; //Button Label
+        
+        String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/", "Sf", "Mf", "<", ">", "S->D", "Red"}
         for (String lbl : btnLabel) {
             RoundBtn btn = new RoundBtn();
             btn.setText(lbl);
