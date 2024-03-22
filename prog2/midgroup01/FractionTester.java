@@ -51,7 +51,14 @@ public class FractionTester implements ActionListener{
                 displayRes.setText("");
                 displayDbl.setText("");
 
-            } else {
+            } else if(btn.getText().equals("?")) {
+                    //Opens a pop-up window of instructions of how to use the program.
+                    String helpText = "<html>Step 1: Enter fractions e.g 1/2 or mixed fractions 3 1/2 " +
+                            "<br><br>Step 2: Press an arithmetic operation. Make sure fraction 1 and 2 are entered before choosing." +
+                            "<br><br>Step 3: Press clear for a quick way to clear the fraction boxes." +
+                            "<br><br>Step 4: Repeat</html>";
+                    JOptionPane.showMessageDialog(calculator.getContentPane(), helpText, "Help", JOptionPane.INFORMATION_MESSAGE);
+            else {
 
                 //Identify the fractions in the text fields by calling the identifyFraction() method.
                 
@@ -118,7 +125,7 @@ public class FractionTester implements ActionListener{
         Matcher findFraction = fractionPattern.matcher(fraction);
 
         /*
-        Check for the length of the identified fraction, the length equates to the type of fraction we will be returning;
+        Checks the length of the identified fraction, the length equates to the type of fraction we will be returning;
         - 3 means it's a mixed fraction.
         - 2 means it's a simple fraction.
         - 1 means it's a whole number.
