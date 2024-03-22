@@ -27,7 +27,6 @@ public class FractionTester implements ActionListener {
         frac2 = calculator.getFraction2();
         displayRes = calculator.getDisplayRes();
         displayDbl = calculator.getDisplayDbl();
-        displayFrc = calculator.getDisplayFrc();
     }
 
 
@@ -94,7 +93,6 @@ public class FractionTester implements ActionListener {
                 }
 
                 displayRes.setText(result.toString());
-                displayFrc.setText(result.toFraction().reduce().toString());
                 displayDbl.setText(String.valueOf(result.toDouble()));
 
             }
