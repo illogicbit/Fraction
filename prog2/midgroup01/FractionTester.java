@@ -15,7 +15,6 @@ public class FractionTester implements ActionListener {
     private static JTextField frac2;
     private static JTextField displayRes;
     private static JTextField displayDbl;
-    private static JTextField displayFrc;
     private static FracGUI calculator;
 
     public static void main(String[] args) {
