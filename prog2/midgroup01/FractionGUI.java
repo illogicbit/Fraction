@@ -12,7 +12,7 @@ public class FractionGUI extends JFrame {
     private JTextArea display = new JTextArea(3,30);
     private JTextField output;
     private BorderLayout brLay = new BorderLayout();
-    private GridLayout btnLay = new GridLayout(4, 4, 4, 4);
+    private GridLayout btnLay;
     private JPanel bgPanel = new JPanel(new BorderLayout());
     private JPanel btnPanel = new JPanel();
     private Color bgColor = new Color(250, 230, 230);
@@ -92,7 +92,6 @@ public class FractionGUI extends JFrame {
         output.setBackground(bgColor);
 
         bgPanel.add(display, BorderLayout.NORTH);
-        bgPanel.add(output);
         bgPanel.add(btnPanel, BorderLayout.CENTER);
         add(bgPanel, BorderLayout.CENTER);
 

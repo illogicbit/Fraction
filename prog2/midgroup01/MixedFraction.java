@@ -82,6 +82,21 @@ public class MixedFraction extends Fraction {
         return new Fraction(newNumerator, this.getDenominator());
     }
 
+
+    public double toDouble() {
+        return (double) this.toFraction().getNumerator() / this.getDenominator();
+    }
+
+    public String toString(){
+        if (whole > 0){
+            //Add whole part to string
+            return String.format("%d %s",whole,super.toString());
+        } else {
+            //Default to regular fraction notation.
+            return super.toString();
+        }
+    }
+
     /**
      * Adds this fraction to another fraction
      * (This Fraction) + (Other Fraction)
@@ -95,11 +110,11 @@ public class MixedFraction extends Fraction {
     }
 
     /**
-     * Adds this fraction to another fraction
-     * (This Fraction) + (Other Fraction)
+     * Subtracts another fraction from this fraction
+     * (This Fraction) - (Other Fraction)
      *
-     * @param other Fraction to add
-     * @return Sum of the operation
+     * @param other Fraction to subtract
+     * @return Difference of the operation
      */
     public MixedFraction subtraction(MixedFraction other) {
         Fraction temp = this.toFraction();
@@ -107,11 +122,11 @@ public class MixedFraction extends Fraction {
     }
 
     /**
-     * Adds this fraction to another fraction
-     * (This Fraction) + (Other Fraction)
+     * Multiplies this fraction to another fraction
+     * (This Fraction) * (Other Fraction)
      *
-     * @param other Fraction to add
-     * @return Sum of the operation
+     * @param other Fraction to multiply by
+     * @return Product of the operation
      */
     public MixedFraction multiplyBy(MixedFraction other) {
         Fraction temp = this.toFraction();
@@ -119,11 +134,11 @@ public class MixedFraction extends Fraction {
     }
 
     /**
-     * Adds this fraction to another fraction
-     * (This Fraction) + (Other Fraction)
+     * Divides this fraction by another fraction
+     * (This Fraction) / (Other Fraction)
      *
-     * @param other Fraction to add
-     * @return Sum of the operation
+     * @param other Fraction to divide by
+     * @return Quotient of the operation
      */
     public MixedFraction divideBy(MixedFraction other) {
         Fraction temp = this.toFraction();
@@ -134,4 +149,7 @@ public class MixedFraction extends Fraction {
         return new MixedFraction(this.toFraction().reduce());
     }
 
+    public static void main(String[] args){
+
+    }
 }
