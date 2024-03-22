@@ -90,10 +90,6 @@ public class FractionTester implements ActionListener {
             }
             index++;
         }
-
-
-        System.out.println(mixedFraction[0]);
-        System.out.println(mixedFraction[1]);
     }
 
     public void arithmeticOperations(String equation) throws InvalidInputException {
@@ -107,12 +103,9 @@ public class FractionTester implements ActionListener {
         if (findOperator.find())
             operator = findOperator.group().replaceAll("[SMf]", "").charAt(0);
 
-        //Input other method calls and functions after this comment. This guarantees that the input is validated to avoid errors.
-
         //Put arithmetic operations below.
         MixedFraction result = null;
         switch (operator) {
-            //Print statements for testing.
             case '+':
                 result = (mixedFraction[0].addition(mixedFraction[1]));
                 break;
@@ -128,21 +121,39 @@ public class FractionTester implements ActionListener {
             default:
                 throw new InvalidInputException("Invalid operator!");
         }
-        output.setText(String.valueOf(result));
+        
+        //Check if the result will be displayed as either a whole number, mixed, or simple fraction.
+        String convertResultToProperOutput = result.toString();
+
+        if (result.getWholePart() == 0) {
+            convertResultToProperOutput = result.toFraction().toString();
+        }
+        if (result.getNumerator() == 0) {
+            convertResultToProperOutput = String.valueOf(Math.round(result.toFraction().toDouble()));
+        }
+        
+        //Display answer.
+        output.setText("= " + convertResultToProperOutput);
     }
 
     public void fractionToDouble(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
-        //Print statement for testing
-        System.out.println(mixedFraction[0].toDouble());
-        //Code to convert fraction to double.
+
+        //Checks if a second fraction exists and if it does display its decimal form alongside the first.
+
+        if (mixedFraction[1] != null) {
+        
+        }
     }
 
     public void reduceFraction(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
-        //Print statement for testing.
-        System.out.println(mixedFraction[0].reduce());
-        //Code to reduce fraction.
+        
+        //Checks if a second fraction exists and if it does display its reduced form alongside the first.
+
+        if (mixedFraction[1] != null) {
+       
+        }
     }
 
     //Start of custom exceptions
