@@ -140,9 +140,9 @@ public class FractionTester implements ActionListener {
         identifyPartsAndValidate(equation);
 
         //Checks if a second fraction exists and if it does display its decimal form alongside the first.
-        System.out.println(mixedFraction[0].toFraction().toDouble());
-        if(mixedFraction[1] != null){
-            System.out.println(mixedFraction[1].toFraction().toDouble());
+
+        if (mixedFraction[1] != null) {
+        
         }
     }
 
@@ -150,9 +150,9 @@ public class FractionTester implements ActionListener {
         identifyPartsAndValidate(equation);
         
         //Checks if a second fraction exists and if it does display its reduced form alongside the first.
-        System.out.println(mixedFraction[0].toFraction().reduce());
-        if(mixedFraction[1] != null){
-            System.out.println(mixedFraction[1].toFraction().reduce());
+
+        if (mixedFraction[1] != null) {
+       
         }
     }
 
