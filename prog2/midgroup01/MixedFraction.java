@@ -99,8 +99,12 @@ public class MixedFraction extends Fraction {
     */
     public String toString() {
         if (whole != 0) {
-            //Add whole part to string
-            return String.format("%d %S", whole, super.toString());
+            if (getNumerator() < 0 || getDenominator() < 0 || whole < 0) {
+                return String.format("-%d %d/%d",
+                        Math.abs(whole), Math.abs(getNumerator()), Math.abs(getDenominator()));
+            } else {
+                return String.format("%d %d/%d", whole, getNumerator(), getDenominator());
+            }
         } else if (getNumerator() != 0) {
             //Default to regular fraction notation.
             return super.toString();
