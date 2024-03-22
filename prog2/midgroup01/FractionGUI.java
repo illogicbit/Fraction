@@ -19,6 +19,10 @@ public class FractionGUI extends JFrame {
     private Font btnFont = new Font("Arial", Font.PLAIN, 20);
     private Dimension txtDim = new Dimension(430, 100);
 
+    public JTextArea getDisplay(){
+        return display;
+    }
+
     public FractionGUI() {
         setTitle("Fraction Calculator");
         setSize(430, 600);
