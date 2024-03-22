@@ -8,6 +8,7 @@ import java.awt.event.MouseEvent;
 
 public class FractionGUI extends JFrame {
     private JTextArea display = new JTextArea(3,30);
+    private JTextField output;
     private BorderLayout brLay = new BorderLayout();
     private GridLayout btnLay = new GridLayout(4, 4, 4, 4);
     private JPanel bgPanel = new JPanel(new BorderLayout());
@@ -22,6 +23,10 @@ public class FractionGUI extends JFrame {
     public JTextArea getDisplay(){
         return display;
     }
+    
+    public JTextField getOutput(){
+        return output;
+    }
 
     public FractionGUI() {
         setTitle("Fraction Calculator");
@@ -34,6 +39,13 @@ public class FractionGUI extends JFrame {
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         btnPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
         btnPanel.setLayout(btnLay);
+
+        output = new JTextField();
+        output.setBounds(260, 60,120, 40);
+        output.setFont(btnFont);
+        output.setEditable(false);
+
+        display.add(output);
         
         String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/", "Sf", "Mf", "<", ">", "S->D", "Red"}
         for (String lbl : btnLabel) {
