@@ -20,6 +20,7 @@ public class FractionGUI extends JFrame {
     private Color altbtnColor = new Color(200,160,160);
     private Font btnFont = new Font("Arial", Font.PLAIN, 20);
     private Dimension txtDim = new Dimension(430, 100);
+    private ImageIcon logo = new ImageIcon(getClass().getResource("logo.png"));
 
     public JTextArea getDisplay(){
         return display;
@@ -35,7 +36,8 @@ public class FractionGUI extends JFrame {
         setLayout(brLay);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        setIconImage(logo.getImage());
+        
         bgPanel.setBackground(bgColor);
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
         btnPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
