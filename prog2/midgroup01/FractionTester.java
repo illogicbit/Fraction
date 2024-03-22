@@ -11,6 +11,11 @@ public class FractionTester implements ActionListener{
     private static JTextArea display;
 
     private static JTextField output;
+
+    private static JTextField outputDecimal;
+    
+    private static JTextField outputReduce;
+    
     String equation = "";
     String input = "";
 
@@ -129,14 +134,16 @@ public class FractionTester implements ActionListener{
     public void fractionToDouble(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
         //Print statement for testing
-        System.out.println(mixedFraction[0].toDouble());
+        double result = (mixedFraction[0].toDouble());
+        outputDecimal.setText(String.valueOf(result));
         //Code to convert fraction to double.
     }
 
     public void reduceFraction(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
         //Print statement for testing.
-        System.out.println(mixedFraction[0].reduce());
+        MixedFraction result = (mixedFraction[0].reduce());
+        outputReduce.setText(String.valueOf(result));
         //Code to reduce fraction.
     }
 
