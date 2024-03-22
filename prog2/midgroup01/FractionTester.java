@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 import prog2.prelimgroup.Fraction;
 
-public class FractionTester implements ActionListener{
+public class FractionTester implements ActionListener {
 
     private Fraction[] fractions = new Fraction[2];
     private static JTextField frac1;
@@ -29,7 +29,6 @@ public class FractionTester implements ActionListener{
         displayDbl = calculator.getDisplayDbl();
         displayFrc = calculator.getDisplayFrc();
     }
-
 
 
     @Override
@@ -53,13 +52,13 @@ public class FractionTester implements ActionListener{
                 displayRes.setText("");
                 displayDbl.setText("");
 
-            } else if(btn.getText().equals("?")) {
-                    //Opens a pop-up window of instructions of how to use the program.
-                    String helpText = "<html>Step 1: Enter fractions e.g 1/2 or mixed fractions 3 1/2 " +
-                            "<br><br>Step 2: Press an arithmetic operation. Make sure fraction 1 and 2 are entered before choosing." +
-                            "<br><br>Step 3: Press clear for a quick way to clear the fraction boxes." +
-                            "<br><br>Step 4: Repeat</html>";
-                    JOptionPane.showMessageDialog(calculator.getContentPane(), helpText, "Help", JOptionPane.INFORMATION_MESSAGE);
+            } else if (btn.getText().equals("?")) {
+                //Opens a pop-up window of instructions of how to use the program.
+                String helpText = "<html>Step 1: Enter fractions e.g 1/2 or mixed fractions 3 1/2 " +
+                        "<br><br>Step 2: Press an arithmetic operation. Make sure fraction 1 and 2 are entered before choosing." +
+                        "<br><br>Step 3: Press clear for a quick way to clear the fraction boxes." +
+                        "<br><br>Step 4: Repeat</html>";
+                JOptionPane.showMessageDialog(calculator.getContentPane(), helpText, "Help", JOptionPane.INFORMATION_MESSAGE);
             } else {
 
                 //Identify the fractions in the text fields by calling the identifyFraction() method.
@@ -94,34 +93,22 @@ public class FractionTester implements ActionListener{
                         break;
                 }
 
-                /*
-                - Display the result properly (e.g. 0/1 should be displayed as 0 or 0 1/2 must be displayed as 1/2)/
-                - Checks if the numerator is 0 and if true, display said fraction as an integer otherwise display the fraction
-                using the toString() method.
-                 */
-
-                if (result.getNumerator() == 0) {
-                    displayRes.setText(String.valueOf(Math.round(result.toDouble())));
-                    displayFrc.setText(String.valueOf(Math.round(result.toDouble())));
-                    displayDbl.setText(String.valueOf(result.toDouble()));
-                }else{
-                    displayRes.setText(result.toString());
-                    displayFrc.setText(result.toFraction().reduce().toString());
-                    displayDbl.setText(String.valueOf(result.toDouble()));
-                }
+                displayRes.setText(result.toString());
+                displayFrc.setText(result.toFraction().reduce().toString());
+                displayDbl.setText(String.valueOf(result.toDouble()));
 
             }
         } catch (NullPointerException error) {
             JOptionPane.showMessageDialog(calculator, "One or more fraction(s) is/are invalid!");
         } catch (ArithmeticException error) {
             JOptionPane.showMessageDialog(calculator, "Denominator cannot be zero!");
-        } catch (Exception error){
+        } catch (Exception error) {
             JOptionPane.showMessageDialog(calculator, "Error!");
         }
 
     }
 
-    private Fraction identifyFraction(String fraction){
+    private Fraction identifyFraction(String fraction) {
 
         //Create a regex pattern and matcher to identify the fraction.
 
@@ -135,17 +122,17 @@ public class FractionTester implements ActionListener{
         - 1 means it's a whole number.
          */
 
-        if(findFraction.find()){
+        if (findFraction.find()) {
             String[] fractionToSplit = findFraction.group().trim().split("[/ ]+");
             System.out.println(Integer.parseInt(fractionToSplit[0]));
-            if(fractionToSplit.length > 2){
+            if (fractionToSplit.length > 2) {
                 return new MixedFraction(Integer.parseInt(fractionToSplit[0]), new Fraction(Integer.parseInt(fractionToSplit[1]), Integer.parseInt(fractionToSplit[2])));
-            }else if(fractionToSplit.length > 1){
+            } else if (fractionToSplit.length > 1) {
                 return new MixedFraction(new Fraction(Integer.parseInt(fractionToSplit[0]), Integer.parseInt(fractionToSplit[1])));
-            }else{
+            } else {
                 return new MixedFraction(new Fraction(Integer.parseInt(fractionToSplit[0])));
             }
-        }else{
+        } else {
             return null;
         }
     }

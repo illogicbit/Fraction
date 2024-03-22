@@ -92,13 +92,20 @@ public class MixedFraction extends Fraction {
         return (double) this.toFraction().getNumerator() / this.getDenominator();
     }
 
+    /*
+    - Display the result properly (e.g. 0/1 should be displayed as 0 or 0 1/2 must be displayed as 1/2)/
+    - Checks if the numerator is 0 and if true, display said fraction as an integer otherwise display the fraction
+    using the toString() method.
+    */
     public String toString() {
-        if (Math.abs(whole) > 0) {
+        if (whole != 0) {
             //Add whole part to string
             return String.format("%d %S", whole, super.toString());
-        } else {
+        } else if (getNumerator() != 0) {
             //Default to regular fraction notation.
             return super.toString();
+        } else {
+            return String.format("%d", whole);
         }
     }
 
