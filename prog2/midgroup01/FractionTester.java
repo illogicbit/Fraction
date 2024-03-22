@@ -8,158 +8,112 @@ import java.util.regex.Pattern;
 
 import prog2.prelimgroup.Fraction;
 
-public class FractionTester implements ActionListener {
+public class FractionTester implements ActionListener{
 
-    private MixedFraction[] mixedFraction = new MixedFraction[2];
-
-    private static JTextArea display;
-
-    private static JTextField output;
-    String equation = "";
-    String input = "";
+    private Fraction[] fractions = new Fraction[2];
+    private static JTextField frac1;
+    private static JTextField frac2;
+    private static JTextField displayRes;
+    private static JTextField displayDbl;
+    private static FractionGUI calculator;
 
     public static void main(String[] args) {
-        FractionGUI fractionFrame = new FractionGUI();
-        display = fractionFrame.getDisplay();
-        output = fractionFrame.getOutput();
+        calculator = new FractionGUI();
+        frac1 = calculator.getFraction1();
+        frac2 = calculator.getFraction2();
+        displayRes = calculator.getDisplayRes();
+        displayDbl = calculator.getDisplayDbl();
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        display.getCaret().setVisible(true);
-        JButton btnInput = (JButton) e.getSource();
-        input = btnInput.getText();
-        equation = display.getText();
+        JButton btn = (JButton) e.getSource();
         try {
-            switch (input) {
-                case "Sf":
-                    display.insert("Sf(/)", display.getCaretPosition());
-                    display.setCaretPosition(display.getCaretPosition() - 2);
-                    break;
-                case "Mf":
-                    display.insert("Mf((/))", display.getCaretPosition());
-                    display.setCaretPosition(display.getCaretPosition() - 4);
-                    break;
-                case "=":
-                    arithmeticOperations(equation);
-                    break;
-                case "<":
-                    display.setCaretPosition(display.getCaretPosition() - 1);
-                    break;
-                case ">":
-                    display.setCaretPosition(display.getCaretPosition() + 1);
-                    break;
-                case "C":
-                    display.setText("");
-                    break;
-                case "Dec":
-                    fractionToDouble(equation);
-                    break;
-                case "Red":
-                    reduceFraction(equation);
-                    break;
-                default:
-                    display.insert(input, display.getCaretPosition());
-            }
-        } catch (InvalidInputException error) {
-            JOptionPane.showMessageDialog(display, error.getMessage());
-        } catch (IndexOutOfBoundsException error) {
-            JOptionPane.showMessageDialog(display, "Fraction count must not exceed 2!");
-        } catch (NullPointerException error) {
-            JOptionPane.showMessageDialog(display, "One or more fraction(s) is/are invalid!");
-        } catch (ArithmeticException error) {
-            JOptionPane.showMessageDialog(display, "Denominator must be greater than zero!");
-        }
+            //Check if the button pressed is an operator or the clear button.
+            if (btn.getText().equals("Clear")) {
+                //Empties the text fields.
+                frac1.setText("");
+                frac2.setText("");
+                displayRes.setText("");
+                displayDbl.setText("");
 
-    }
-
-    //Method to identify the fraction/s in the equations (Max of 2)
-    public void identifyPartsAndValidate(String equation) {
-        //Create a regex search pattern and matcher
-        Pattern fractionPattern = Pattern.compile("Sf\\(-*[0-9]+/-*[0-9]+\\)|Mf\\(-*[0-9]+\\(-*[0-9]+/-*[0-9]+\\)\\)");
-        Matcher findFractions = fractionPattern.matcher(equation);
-        //Loop through the equation to find substring of text similar to the identified pattern, then check for its length to determine whether it's a simple or mixed fraction.
-        int index = 0;
-        while (findFractions.find()) {
-            //Separate the fraction into individual signed integers and create a new MixedFraction class to be stored in an array.
-            String[] fractionToSeparate = findFractions.group().replaceAll("[SMf]", "").replaceAll("[()/]", " ").trim().split(" ");
-            if (fractionToSeparate.length > 2) {
-                mixedFraction[index] = new MixedFraction(Integer.parseInt(fractionToSeparate[0]), new Fraction(Integer.parseInt(fractionToSeparate[1]), Integer.parseInt(fractionToSeparate[2])));
             } else {
-                mixedFraction[index] = new MixedFraction(new Fraction(Integer.parseInt(fractionToSeparate[0]), Integer.parseInt(fractionToSeparate[1])));
+
+                //Identify the fractions in the text fields by calling the identifyFraction() method.
+                fractions[0] = identifyFraction(frac1.getText());
+                fractions[1] = identifyFraction(frac2.getText());
+
+                MixedFraction fraction1 = (MixedFraction) fractions[0];
+                MixedFraction fraction2 = (MixedFraction) fractions[1];
+
+                //Prints the
+                System.out.println(fraction1);
+                System.out.println(fraction2);
+
+                MixedFraction result = null;
+
+                switch (btn.getText()) {
+                    case "+":
+                        result = fraction1.addition(fraction2);
+                        break;
+                    case "-":
+                        result = fraction1.subtraction(fraction2);
+                        break;
+                    case "*":
+                        result = fraction1.multiplyBy(fraction2);
+                        break;
+                    case "÷":
+                        result = fraction1.divideBy(fraction2);
+                        break;
+                }
+
+                if (result.getWholePart() == 0) {
+                    displayRes.setText(result.toFraction().toString());
+                    displayDbl.setText(String.valueOf(result.toFraction().toDouble()));
+                }
+                if (result.getNumerator() == 0) {
+                    displayRes.setText(String.valueOf(Math.round(result.toDouble())));
+                    displayDbl.setText(String.valueOf(result.toFraction().toDouble()));
+                    return;
+                }
+                displayRes.setText(result.reduce().toString());
+                displayDbl.setText(String.valueOf(result.toFraction().toDouble()));
             }
-            index++;
+
+        } catch (NullPointerException error) {
+            JOptionPane.showMessageDialog(calculator, "One or more fraction(s) is/are invalid!");
+        } catch (ArithmeticException error) {
+            JOptionPane.showMessageDialog(calculator, "Denominator cannot be zero!");
+        } catch (Exception error){
+            JOptionPane.showMessageDialog(calculator, "Error!");
         }
+
     }
 
-    public void arithmeticOperations(String equation) throws InvalidInputException {
-        identifyPartsAndValidate(equation);
+    private Fraction identifyFraction(String fraction){
+        //Create a regex pattern and matcher to identify the fraction.
+        Pattern fractionPattern = Pattern.compile("-? ?[0-9]+ -?[0-9]+ ?/ ?-?[0-9]+|-?[0-9]+ ?/ ?-?[0-9]+|-?[0-9]+");
+        Matcher findFraction = fractionPattern.matcher(fraction);
 
-        //Identify the operator using a regex pattern matcher.
-        char operator = ' ';
-        Pattern operatorPattern = Pattern.compile("[-+/*]+Mf|[-+/*]+Sf");
-        Matcher findOperator = operatorPattern.matcher(equation);
-
-        if (findOperator.find())
-            operator = findOperator.group().replaceAll("[SMf]", "").charAt(0);
-
-        //Put arithmetic operations below.
-        MixedFraction result = null;
-        switch (operator) {
-            case '+':
-                result = (mixedFraction[0].addition(mixedFraction[1]));
-                break;
-            case '-':
-                result = (mixedFraction[0].subtraction(mixedFraction[1]));
-                break;
-            case '/':
-                result = (mixedFraction[0].divideBy(mixedFraction[1]));
-                break;
-            case '*':
-                result = (mixedFraction[0].multiplyBy(mixedFraction[1]));
-                break;
-            default:
-                throw new InvalidInputException("Invalid operator!");
-        }
-        
-        //Check if the result will be displayed as either a whole number, mixed, or simple fraction.
-        String convertResultToProperOutput = result.toString();
-
-        if (result.getWholePart() == 0) {
-            convertResultToProperOutput = result.toFraction().toString();
-        }
-        if (result.getNumerator() == 0) {
-            convertResultToProperOutput = String.valueOf(Math.round(result.toFraction().toDouble()));
-        }
-        
-        //Display answer.
-        output.setText("= " + convertResultToProperOutput);
-    }
-
-    public void fractionToDouble(String equation) throws InvalidInputException {
-        identifyPartsAndValidate(equation);
-
-        //Checks if a second fraction exists and if it does display its decimal form alongside the first.
-
-        if (mixedFraction[1] != null) {
-        
-        }
-    }
-
-    public void reduceFraction(String equation) throws InvalidInputException {
-        identifyPartsAndValidate(equation);
-        
-        //Checks if a second fraction exists and if it does display its reduced form alongside the first.
-
-        if (mixedFraction[1] != null) {
-       
-        }
-    }
-
-    //Start of custom exceptions
-    public class InvalidInputException extends Exception {
-        public InvalidInputException(String errorMessage) {
-            super(errorMessage);
+        /*
+        Check for the length of the identified fraction, the length equates to the type of fraction we will be returning;
+        - 3 means it's a mixed fraction.
+        - 2 means it's a simple fraction.
+        - 1 means it's a whole number.
+         */
+        if(findFraction.find()){
+            String[] fractionToSplit = findFraction.group().trim().split("[/ ]+");
+            if(fractionToSplit.length > 2){
+                return new MixedFraction(Integer.parseInt(fractionToSplit[0]), Integer.parseInt(fractionToSplit[1]), Integer.parseInt(fractionToSplit[2]));
+            }else if(fractionToSplit.length > 1){
+                return new MixedFraction(new Fraction(Integer.parseInt(fractionToSplit[0]), Integer.parseInt(fractionToSplit[1])));
+            }else{
+                return new MixedFraction(new Fraction(Integer.parseInt(fractionToSplit[0])));
+            }
+        }else{
+            return null;
         }
     }
 
