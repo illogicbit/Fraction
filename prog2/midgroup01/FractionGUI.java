@@ -1,3 +1,5 @@
+package prog2.midgroup01;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -7,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class FractionGUI extends JFrame {
-    private JTextArea display = new JTextArea(3,30);
+    private JTextArea display = new JTextArea(3, 30);
     private JTextField output;
     private BorderLayout brLay = new BorderLayout();
     private GridLayout btnLay = new GridLayout(4, 4, 4, 4);
@@ -16,11 +18,11 @@ public class FractionGUI extends JFrame {
     private Color bgColor = new Color(250, 230, 230);
     private Color btnColor = new Color(250, 170, 170);
     private Color fontColor = new Color(140, 70, 80);
-    private Color altbtnColor = new Color(200,160,160);
+    private Color altbtnColor = new Color(200, 160, 160);
     private Font btnFont = new Font("Arial", Font.PLAIN, 20);
     private Dimension txtDim = new Dimension(430, 100);
 
-    public JTextArea getDisplay(){
+    public JTextArea getDisplay() {
         return display;
     }
     
@@ -46,8 +48,8 @@ public class FractionGUI extends JFrame {
         output.setEditable(false);
 
         display.add(output);
-        
-        String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/", "Sf", "Mf", "<", ">", "S->D", "Red"}
+
+        String[] btnLabel = {"7", "8", "9", "+", "4", "5", "6", "-", "1", "2", "3", "*", "C", "0", "=", "/", "Sf", "Mf", "<", ">", "S->D", "Red"};
         for (String lbl : btnLabel) {
             RoundBtn btn = new RoundBtn();
             btn.setText(lbl);
@@ -65,7 +67,8 @@ public class FractionGUI extends JFrame {
                     btn.setBackground(altbtnColor);
                     btn.setForeground(btnColor);
                 }
-                public void mouseExited(MouseEvent e){
+
+                public void mouseExited(MouseEvent e) {
                     super.mouseEntered(e);
                     btn.setBackground(btnColor);
                     btn.setForeground(fontColor);
@@ -87,6 +90,7 @@ public class FractionGUI extends JFrame {
 
         setVisible(true);
     }
+
     public class RoundBtn extends JButton {
         private int cornerRadius = 5;
 
