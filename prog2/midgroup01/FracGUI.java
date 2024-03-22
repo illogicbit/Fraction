@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class FractionGUI extends JFrame {
-    private JPanel btnBox = new JPanel(new GridLayout(5, 1, 5, 5));
+    private JPanel btnBox = new JPanel(new GridLayout(6, 1, 5, 5));
     private JPanel fieldBox = new JPanel(new GridBagLayout());
     private JButton addBtn = new JButton("+");
     private JButton subBtn = new JButton("-");
@@ -159,6 +159,25 @@ public class FractionGUI extends JFrame {
         });
         btnBox.add(clearBtn);
 
+        helpBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
+        helpBtn.setBackground(btnColor);
+        helpBtn.setForeground(fontColor);
+        helpBtn.addActionListener(new FractionTester());
+        helpBtn.setFocusPainted(false);
+        helpBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                super.mouseEntered(e);
+                helpBtn.setBackground(altbtnColor);
+                helpBtn.setForeground(btnColor);
+            }
+            public void mouseExited(MouseEvent e){
+                super.mouseEntered(e);
+                helpBtn.setBackground(btnColor);
+                helpBtn.setForeground(fontColor);
+            }
+        });
+        btnBox.add(helpBtn);
 
         // Fields Panel
         fieldBox.setBackground(bgColor);
