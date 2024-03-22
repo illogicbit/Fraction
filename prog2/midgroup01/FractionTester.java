@@ -15,6 +15,11 @@ public class FractionTester implements ActionListener {
     private static JTextArea display;
 
     private static JTextField output;
+
+    private static JTextField outputDecimal;
+    
+    private static JTextField outputReduce;
+    
     String equation = "";
     String input = "";
 
@@ -138,22 +143,32 @@ public class FractionTester implements ActionListener {
 
     public void fractionToDouble(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
+        //Print statement for testing
+        double result = (mixedFraction[0].toDouble());
+        outputDecimal.setText(String.valueOf(result));
+        //Code to convert fraction to double.
 
         //Checks if a second fraction exists and if it does display its decimal form alongside the first.
 
         if (mixedFraction[1] != null) {
         
         }
+      main
     }
 
     public void reduceFraction(String equation) throws InvalidInputException {
         identifyPartsAndValidate(equation);
+        //Print statement for testing.
+        MixedFraction result = (mixedFraction[0].reduce());
+        outputReduce.setText(String.valueOf(result));
+        //Code to reduce fraction.
         
         //Checks if a second fraction exists and if it does display its reduced form alongside the first.
 
         if (mixedFraction[1] != null) {
        
         }
+       main
     }
 
     //Start of custom exceptions
