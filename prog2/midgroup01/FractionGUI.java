@@ -9,7 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class FractionGUI extends JFrame {
-    private JTextArea display = new JTextArea(3, 30);
+    private JTextArea display = new JTextArea(3,30);
     private JTextField output;
     private BorderLayout brLay = new BorderLayout();
     private GridLayout btnLay = new GridLayout(4, 4, 4, 4);
@@ -18,11 +18,12 @@ public class FractionGUI extends JFrame {
     private Color bgColor = new Color(250, 230, 230);
     private Color btnColor = new Color(250, 170, 170);
     private Color fontColor = new Color(140, 70, 80);
-    private Color altbtnColor = new Color(200, 160, 160);
+    private Color altbtnColor = new Color(200,160,160);
     private Font btnFont = new Font("Arial", Font.PLAIN, 20);
     private Dimension txtDim = new Dimension(430, 100);
+    private ImageIcon logo = new ImageIcon(getClass().getResource("logo.png"));
 
-    public JTextArea getDisplay() {
+    public JTextArea getDisplay(){
         return display;
     }
     
@@ -36,6 +37,7 @@ public class FractionGUI extends JFrame {
         setLayout(brLay);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setIconImage(logo.getImage());
 
         bgPanel.setBackground(bgColor);
         btnPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
@@ -60,6 +62,7 @@ public class FractionGUI extends JFrame {
             btn.setBorderPainted(false);
             btnPanel.setBackground(bgColor);
             btnPanel.add(btn);
+            btn.addActionListener(new FractionTester());
             btn.addMouseListener(new MouseAdapter() { //mouse hover effect
                 @Override
                 public void mouseEntered(MouseEvent e) {
@@ -67,8 +70,7 @@ public class FractionGUI extends JFrame {
                     btn.setBackground(altbtnColor);
                     btn.setForeground(btnColor);
                 }
-
-                public void mouseExited(MouseEvent e) {
+                public void mouseExited(MouseEvent e){
                     super.mouseEntered(e);
                     btn.setBackground(btnColor);
                     btn.setForeground(fontColor);
@@ -78,12 +80,19 @@ public class FractionGUI extends JFrame {
 
         }
         display.setEditable(false);
-        display.setComponentOrientation(ComponentOrientation.RIGHT_TO_LEFT);
+        display.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
         display.setFont(btnFont);
         display.setPreferredSize(txtDim);
         display.setBackground(bgColor);
 
+        output = new JTextField();
+        output.setBounds(285, 60,120, 40);
+        output.setFont(btnFont);
+        output.setEditable(false);
+        output.setBackground(bgColor);
+
         bgPanel.add(display, BorderLayout.NORTH);
+        bgPanel.add(output);
         bgPanel.add(btnPanel, BorderLayout.CENTER);
         add(bgPanel, BorderLayout.CENTER);
 

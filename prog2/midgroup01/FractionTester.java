@@ -13,14 +13,15 @@ public class FractionTester implements ActionListener {
     private MixedFraction[] mixedFraction = new MixedFraction[2];
 
     private static JTextArea display;
-    String equation = "";
-    String input = "";
 
     private static JTextField output;
+    String equation = "";
+    String input = "";
 
     public static void main(String[] args) {
         FractionGUI fractionFrame = new FractionGUI();
         display = fractionFrame.getDisplay();
+        output = fractionFrame.getOutput();
     }
 
     @Override
@@ -51,7 +52,7 @@ public class FractionTester implements ActionListener {
                 case "C":
                     display.setText("");
                     break;
-                case "S->D":
+                case "Dec":
                     fractionToDouble(equation);
                     break;
                 case "Red":
