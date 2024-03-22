@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class FractionGUI extends JFrame {
+public class FracGUI extends JFrame {
     private JPanel btnBox = new JPanel(new GridLayout(5, 1, 5, 5));
     private JPanel fieldBox = new JPanel(new GridBagLayout());
     private JButton addBtn = new JButton("+");
@@ -27,7 +27,7 @@ public class FractionGUI extends JFrame {
     private Font fieldFont = new Font("Arial", Font.PLAIN,15);
     private Dimension fDim = new Dimension(800, 450);
 
-    public FractionGUI() {
+    public FracGUI() {
         // Main
         setTitle("Fraction Calculator");
         setSize(fDim);

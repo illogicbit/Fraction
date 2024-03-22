@@ -15,10 +15,10 @@ public class FractionTester implements ActionListener{
     private static JTextField frac2;
     private static JTextField displayRes;
     private static JTextField displayDbl;
-    private static FractionGUI calculator;
+    private static FracGUI calculator;
 
     public static void main(String[] args) {
-        calculator = new FractionGUI();
+        calculator = new FracGUI();
         frac1 = calculator.getFraction1();
         frac2 = calculator.getFraction2();
         displayRes = calculator.getDisplayRes();
@@ -56,16 +56,16 @@ public class FractionTester implements ActionListener{
 
                 switch (btn.getText()) {
                     case "+":
-                        result = fraction1.addition(fraction2);
+                        result = fraction1.addition(fraction2).reduce();
                         break;
                     case "-":
-                        result = fraction1.subtraction(fraction2);
+                        result = fraction1.subtraction(fraction2).reduce();
                         break;
                     case "*":
-                        result = fraction1.multiplyBy(fraction2);
+                        result = fraction1.multiplyBy(fraction2).reduce();
                         break;
                     case "÷":
-                        result = fraction1.divideBy(fraction2);
+                        result = fraction1.divideBy(fraction2).reduce();
                         break;
                 }
 

@@ -11,7 +11,6 @@ import java.awt.event.MouseEvent;
 public class FractionGUI extends JFrame {
     private JTextArea display = new JTextArea(3,30);
     private JTextField output, outputDecimal, outputReduce = new JTextField();
-    main
     private BorderLayout brLay = new BorderLayout();
     private GridLayout btnLay;
     private JPanel bgPanel = new JPanel(new BorderLayout());

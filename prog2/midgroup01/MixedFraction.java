@@ -88,9 +88,9 @@ public class MixedFraction extends Fraction {
     }
 
     public String toString(){
-        if (whole > 0){
+        if (Math.abs(whole) > 0){
             //Add whole part to string
-            return String.format("%d %s",whole,super.toString());
+            return String.format("%d %S",whole,super.toString());
         } else {
             //Default to regular fraction notation.
             return super.toString();
@@ -147,9 +147,5 @@ public class MixedFraction extends Fraction {
 
     public MixedFraction reduce() {
         return new MixedFraction(this.toFraction().reduce());
-    }
-
-    public static void main(String[] args){
-
     }
 }
