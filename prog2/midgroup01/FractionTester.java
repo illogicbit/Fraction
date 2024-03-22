@@ -58,7 +58,7 @@ public class FractionTester implements ActionListener{
                             "<br><br>Step 3: Press clear for a quick way to clear the fraction boxes." +
                             "<br><br>Step 4: Repeat</html>";
                     JOptionPane.showMessageDialog(calculator.getContentPane(), helpText, "Help", JOptionPane.INFORMATION_MESSAGE);
-            else {
+            } else {
 
                 //Identify the fractions in the text fields by calling the identifyFraction() method.
                 
