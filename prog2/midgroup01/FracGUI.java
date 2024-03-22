@@ -11,6 +11,7 @@ public class FracGUI extends JFrame {
     private JButton mulBtn = new JButton("*");
     private JButton divBtn = new JButton("÷");
     private JButton clearBtn = new JButton("Clear");
+    private JButton helpBtn = new JButton("?");
     private JTextField frac1 = new JTextField(15);
     private JTextField frac2 = new JTextField(15);
     private JTextField displayDbl = new JTextField(15);

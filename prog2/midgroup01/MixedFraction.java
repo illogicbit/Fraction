@@ -4,7 +4,8 @@ import prog2.prelimgroup.Fraction;
 
 /**
  * A class designed to hold a mixed fraction.
- * Stores the fractional part and whole number portion and allows operations between regular fractions and mixed fractions.
+ * <p>Stores the fractional part and whole number portion
+ * and allows operations between regular fractions and mixed fractions</p>.
  *
  * @see Fraction
  */
@@ -21,7 +22,9 @@ public class MixedFraction extends Fraction {
 
     /**
      * Creates a fraction with a whole number and an existing fraction.
-     * <i>Automatically converts an improper fraction into a mixed fraction.</i>
+     * <p>
+     * Automatically converts an improper fraction into a mixed fraction.
+     * </p>
      *
      * @param whole    Whole number part of the mixed fraction
      * @param fraction Fractional portion of the mixed fraction.
@@ -46,7 +49,9 @@ public class MixedFraction extends Fraction {
 
     /**
      * Creates a fraction from a proper or improper fraction
+     * <p>
      * If the fraction is improper, it is automatically converted into a mixed fraction
+     * </p>
      *
      * @param fraction Fraction to convert to a mixed fraction
      */
@@ -87,10 +92,10 @@ public class MixedFraction extends Fraction {
         return (double) this.toFraction().getNumerator() / this.getDenominator();
     }
 
-    public String toString(){
-        if (Math.abs(whole) > 0){
+    public String toString() {
+        if (Math.abs(whole) > 0) {
             //Add whole part to string
-            return String.format("%d %S",whole,super.toString());
+            return String.format("%d %S", whole, super.toString());
         } else {
             //Default to regular fraction notation.
             return super.toString();
@@ -99,7 +104,9 @@ public class MixedFraction extends Fraction {
 
     /**
      * Adds this fraction to another fraction
+     * <p>
      * (This Fraction) + (Other Fraction)
+     * </p>
      *
      * @param other Fraction to add
      * @return Sum of the operation
@@ -111,7 +118,9 @@ public class MixedFraction extends Fraction {
 
     /**
      * Subtracts another fraction from this fraction
+     * <p>
      * (This Fraction) - (Other Fraction)
+     * </p>
      *
      * @param other Fraction to subtract
      * @return Difference of the operation
@@ -123,7 +132,9 @@ public class MixedFraction extends Fraction {
 
     /**
      * Multiplies this fraction to another fraction
+     * <p>
      * (This Fraction) * (Other Fraction)
+     * </p>
      *
      * @param other Fraction to multiply by
      * @return Product of the operation
@@ -135,7 +146,9 @@ public class MixedFraction extends Fraction {
 
     /**
      * Divides this fraction by another fraction
+     * <p>
      * (This Fraction) / (Other Fraction)
+     * </p>
      *
      * @param other Fraction to divide by
      * @return Quotient of the operation

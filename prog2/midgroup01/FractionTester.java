@@ -15,14 +15,13 @@ public class FractionTester implements ActionListener{
     private static JTextField frac2;
     private static JTextField displayRes;
     private static JTextField displayDbl;
-    private static FractionGUI calculator;
+    private static FracGUI calculator;
 
     public static void main(String[] args) {
-        calculator = new FracGUI();
 
         //Create JTextField objects that allow access to the text fields of the GUI.
 
-        calculator = new FractionGUI();
+        calculator = new FracGUI();
         frac1 = calculator.getFraction1();
         frac2 = calculator.getFraction2();
         displayRes = calculator.getDisplayRes();
