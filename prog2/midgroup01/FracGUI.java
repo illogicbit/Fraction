@@ -1,10 +1,10 @@
-package 
-  
+package prog2.midgroup01;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-public class FractionGUI extends JFrame implements ActionListener {
-  private JPanel btnBox = new JPanel(new GridLayout(5, 1, 5, 5));
+
+public class FractionGUI extends JFrame {
+    private JPanel btnBox = new JPanel(new GridLayout(5, 1, 5, 5));
     private JPanel fieldBox = new JPanel(new GridBagLayout());
     private JButton addBtn = new JButton("+");
     private JButton subBtn = new JButton("-");
@@ -28,7 +28,7 @@ public class FractionGUI extends JFrame implements ActionListener {
     private Dimension fDim = new Dimension(800, 450);
 
     public FractionGUI() {
-        // Main 
+        // Main
         setTitle("Fraction Calculator");
         setSize(fDim);
         setLocationRelativeTo(null);
@@ -36,8 +36,8 @@ public class FractionGUI extends JFrame implements ActionListener {
         setResizable(false);
         getContentPane().setBackground(bgColor);
         setLayout(new GridBagLayout());
-      
-        // Create main content 
+
+        // Create main content
         JPanel mainPanel = new JPanel(new GridBagLayout());
         mainPanel.setBackground(bgColor);
         GridBagConstraints gbcMain = new GridBagConstraints();
@@ -62,7 +62,7 @@ public class FractionGUI extends JFrame implements ActionListener {
         addBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
         addBtn.setBackground(btnColor);
         addBtn.setForeground(fontColor);
-        addBtn.addActionListener(this);
+        addBtn.addActionListener(new FractionTester());
         addBtn.setFocusPainted(false);
         addBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
             @Override
@@ -82,7 +82,7 @@ public class FractionGUI extends JFrame implements ActionListener {
         mulBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
         mulBtn.setBackground(btnColor);
         mulBtn.setForeground(fontColor);
-        mulBtn.addActionListener(this);
+        mulBtn.addActionListener(new FractionTester());
         mulBtn.setFocusPainted(false);
         mulBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
             @Override
@@ -102,7 +102,7 @@ public class FractionGUI extends JFrame implements ActionListener {
         subBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
         subBtn.setBackground(btnColor);
         subBtn.setForeground(fontColor);
-        subBtn.addActionListener(this);
+        subBtn.addActionListener(new FractionTester());
         subBtn.setFocusPainted(false);
         subBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
             @Override
@@ -122,7 +122,7 @@ public class FractionGUI extends JFrame implements ActionListener {
         divBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
         divBtn.setBackground(btnColor);
         divBtn.setForeground(fontColor);
-        divBtn.addActionListener(this);
+        divBtn.addActionListener(new FractionTester());
         divBtn.setFocusPainted(false);
         divBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
             @Override
@@ -142,7 +142,7 @@ public class FractionGUI extends JFrame implements ActionListener {
         clearBtn.setPreferredSize(new Dimension(50, 30)); // Set button size
         clearBtn.setBackground(btnColor);
         clearBtn.setForeground(fontColor);
-        clearBtn.addActionListener(this);
+        clearBtn.addActionListener(new FractionTester());
         clearBtn.setFocusPainted(false);
         clearBtn.addMouseListener(new MouseAdapter() { //mouse hover effect
             @Override
@@ -213,12 +213,12 @@ public class FractionGUI extends JFrame implements ActionListener {
         textRes.setForeground(fontColor);
         textDbl.setForeground(fontColor);
 
-        frac1.setText("eg. 1 1/3");
+
         frac1.setFont(fieldFont);
         textFrac.setFont(fieldFont);
         textFrac.setForeground(fontColor);
 
-        frac2.setText("eg. 4/5");
+
         frac2.setFont(fieldFont);
         textFracB.setFont(fieldFont);
         textFracB.setForeground(fontColor);
@@ -233,36 +233,24 @@ public class FractionGUI extends JFrame implements ActionListener {
         displayDbl.setEditable(false);
         displayDbl.setForeground(fontColor);
 
+        setVisible(true);
     }
 
-
+    //Accessors and Mutators
+    public JTextField getFraction1(){
+        return frac1;
     }
 
-    public void actionPerformed(ActionEvent e) { // if possible pa case
-        if (e.getSource() == addBtn) {
-  // code
-            displayRes.setText(res.toString());
-        } else if (e.getSource() == mulBtn) {
-  // code
-            displayRes.setText(res.toString());
-        } else if (e.getSource() == subBtn) {
-  // code
-            displayRes.setText(res.toString());
-        } else if (e.getSource() == divBtn) {
-  // code
-            displayRes.setText(res.toString());
-        } else if (e.getSource() == clearBtn) {
-            frac1.setText("");
-            frac2.setText("");
-            displayRes.setText("");
-        }
+    public JTextField getFraction2(){
+        return frac2;
     }
-  
 
- // add parse ,, for // etc + numberformatexception
-
-    public static void main(String[] args) {
-        FractionGUI calculator = new FractionGUI();
-        calculator.setVisible(true);
+    public JTextField getDisplayRes(){
+        return displayRes;
     }
+
+    public JTextField getDisplayDbl(){
+        return displayDbl;
+    }
+
 }
